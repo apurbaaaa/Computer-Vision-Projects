@@ -2,6 +2,7 @@
 import cv2
 import os
 import mediapipe as mp
+data = './data'
 img_path = './data/testImg.png'
 img = cv2.imread(img_path)
 #detect faces
@@ -25,7 +26,8 @@ with mp_face_detection.FaceDetection(model_selection = 0, min_detection_confiden
 
             #blur faces
             img[y1:y1+h, x1:x1+h, :] = cv2.blur(img[y1:y1+h, x1:x1+h, :], (40, 40))
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
+    # cv2.imshow('img', img)
+    # cv2.waitKey(0)
 
 #save image
+cv2.imwrite(os.path.join(data, 'output_blur.png'), img)
