@@ -25,8 +25,8 @@ def process_img(img, face_detection):
     return img
 
 args = argparse.ArgumentParser()
-args.add_argument("--mode", default='video')
-args.add_argument("--filePath", default='./data/testVideo.mp4')
+args.add_argument("--mode", default='webcam')#change mode here
+args.add_argument("--filePath", default=None)#change deault = path when image and video
 args = args.parse_args()
 
 data = './data'
@@ -59,3 +59,19 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
         cap.release()
         output_video.release()
         print(f"Saved processed video to {output_path}")
+    
+    elif args.mode == "webcam":
+        cap = cv2.VideoCapture(1)
+        print("Press 'q' to quit webcam.")
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            frame = process_img(frame, face_detection)
+            cv2.imshow('Webcam - Press q to quit', frame)
+
+            if cv2.waitKey(25) & 0xFF == ord('q'):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
