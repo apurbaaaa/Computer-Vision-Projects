@@ -3,6 +3,7 @@ from img2vec_pytorch import Img2Vec
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from PIL import Image
+from sklearn.ensemble import RandomForestClassifier
 #import data and prepare
 img2vec = Img2Vec()
 
@@ -25,9 +26,10 @@ for j, dir_ in enumerate([train_dir, test_dir]):
             labels.append(category)
 
     data[['training_data', 'validation_data'][j]] = features
-    data[['training_labels', 'validation_labels'][j]] = lables
+    data[['training_labels', 'validation_labels'][j]] = labels
 #train model
-
+model = RandomForestClassifier()
+model.fit(data['training_data'], data['training_labels'])
 #test model
 
 #save model
