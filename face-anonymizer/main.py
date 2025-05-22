@@ -70,7 +70,7 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
             frame = process_img(frame, face_detection)
             cv2.imshow('Webcam - Press q to quit', frame)
 
-            if cv2.waitKey(25) & 0xFF == ord('q'):
+            if cv2.waitKey(2500) & 0xFF == ord('q'):
                 break
 
         cap.release()
